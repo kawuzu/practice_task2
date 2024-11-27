@@ -8,29 +8,30 @@
 /* Общие стили */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #121212;  /* Темный фон */
-    color: #e0e0e0;  /* Светлый текст */
+    background-color: white;  /* Темный фон */
+    color: black;  /* Светлый текст */
     line-height: 1.6;
 }
 
 a {
     text-decoration: none;
-    color: #00bcd4;  /* Акцентный цвет для ссылок */
+    color: #00a9a5;  /* Акцентный цвет для ссылок */
 }
 
 a:hover {
-    color: #80deea;  /* Более светлый акцент при наведении */
+    color: #0dd8d3;  /* Более светлый акцент при наведении */
 }
 
 /* Шапка */
 header {
-    background-color: #1c1c1c;  /* Еще более темный фон для шапки */
-    color: #ffffff;
+    background-color: white;  /* Еще более темный фон для шапки */
+    color: black;
     padding: 20px 0;
     text-align: center;
 }
 
 header h1 {
+    color: black;
     font-size: 2.5rem;
     margin-bottom: 10px;
 }
@@ -40,13 +41,13 @@ nav {
 }
 
 nav a {
-    color: #00bcd4;
+    color: #00a9a5;
     margin: 0 15px;
     font-size: 1.1rem;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Основной контент */
@@ -54,7 +55,7 @@ main {
     padding: 40px 20px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #2c2c2c;  /* Темный фон для основного контента */
+    background-color: #eca548;  /* Темный фон для основного контента */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
 }
@@ -62,13 +63,13 @@ main {
 h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #ffffff;  /* Белый текст для заголовков */
+    color: black;
 }
 
 p {
     font-size: 1rem;
     margin-bottom: 20px;
-    color: #b0bec5;  /* Светло-серый текст для абзацев */
+    color: black;  /* Светло-серый текст для абзацев */
 }
 
 /* Футер */
@@ -81,7 +82,7 @@ footer {
 }
 
 .hero-section {
-    background-color: #1c1c1c;
+    background-color: white;
     color: #ffffff;
     padding: 40px 20px;
     text-align: center;
@@ -97,8 +98,8 @@ footer {
 }
 
 .hero-section p {
+    color: black;
     font-size: 1.2rem;
-    color: #b0bec5;
 }
 
 /* Стили для формы и ошибок */
@@ -170,7 +171,7 @@ form button:hover {
 
 .btn {
     padding: 10px 20px;
-    background-color: #4CAF50; /* Зеленый цвет */
+    background-color: #eca548;
     color: white;
     text-align: center;
     text-decoration: none;
@@ -180,7 +181,8 @@ form button:hover {
 }
 
 .btn:hover {
-    background-color: #45a049; /* Цвет при наведении */
+    color: black;
+    background-color: #48ece7; /* Цвет при наведении */
 }
 
 .container {
@@ -247,8 +249,8 @@ form button:hover {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #444; /* Темная рамка */
-    background-color: #333; /* Темный фон для полей */
+    border: 2px solid #131313; /* Темная рамка */
+    background-color: #a3a1a1; /* фон для полей */
     color: #e0e0e0; /* Светлый текст */
     font-size: 16px;
 }
@@ -268,12 +270,12 @@ form button:hover {
 }
 
 .submit-btn {
-    background-color: #4CAF50; /* Зеленая кнопка */
+    background-color: #48ece7;
     color: white;
 }
 
 .submit-btn:hover {
-    background-color: #45a049; /* Более темный зеленый при наведении */
+    background-color: #11d5d1;
 }
 
 .submit-btn:focus {
@@ -299,7 +301,7 @@ h2 {
 }
 
 .request-item {
-    background-color: #2c2c2c;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -307,11 +309,11 @@ h2 {
 
 .request-item h3 {
     margin: 0;
-    color: #fff;
+    color: black;
 }
 
 .request-item p {
-    color: #ccc;
+    color: black;
 }
 
 .request-item .btn {

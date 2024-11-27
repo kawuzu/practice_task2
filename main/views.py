@@ -21,7 +21,8 @@ def home(request):
     if request.user.is_authenticated:
         welcome_message = f"Привет, {request.user.username}!"
     else:
-        welcome_message = "Привет, гость! Пожалуйста, войдите или зарегистрируйтесь."
+        welcome_message = ("Здравствуй, гость! Мы - дизайн-студия DesignPro! "
+                           "Пожалуйста, войдите или зарегистрируйтесь, чтобы мы помогли воплотить ваши самые смелые мечты о дизайне!")
 
     return render(request, 'main/index.html', {'welcome_message': welcome_message})
 
