@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Подробнее о заявке{% endblock %}
+
+{% block content %}
+    <h2>{{ request.title }}</h2>
+    <p><strong>Описание:</strong> {{ request.description }}</p>
+    <p><strong>Категория:</strong> {{ request.category.name }}</p>
+    <p><strong>Дата создания:</strong> {{ request.created_at }}</p>
+
+    {% if request.photo %}
+        <img src="{{ request.photo.url }}" alt="{{ request.title }}" class="request-photo">
+    {% endif %}
+
+    <!-- Кнопка удаления заявки -->
+    <form action="{% url 'delete_request' request.id %}" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить заявку</button>
+    </form>
+
+    <a href="{% url 'my_requests' %}" class="btn">Назад к моим заявкам</a>
+{% endblock %}

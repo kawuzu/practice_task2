@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Мои заявки{% endblock %}
+
+{% block content %}
+    <h2>Мои заявки на разработку дизайна интерьера</h2>
+
+    <div class="request-list">
+        {% for request in requests %}
+            <div class="request-item {% if request.is_important %}important{% endif %}">
+                <h3>{{ request.title }}</h3>
+                <p>{{ request.description|truncatewords:20 }}</p> <!-- Обрезаем описание до 20 слов -->
+                <p><strong>Категория:</strong> {{ request.category.name }}</p>
+
+                <!-- Визуальная метка для важных заявок -->
+                {% if request.is_important %}
+                    <span class="important-badge">Важная</span>
+                {% endif %}
+
+                <!-- Кнопка для перехода на страницу подробной информации -->
+                <a href="{% url 'request_detail' request.id %}" class="btn">Подробнее</a>
+            </div>
+        {% empty %}
+            <p>У вас нет заявок.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
