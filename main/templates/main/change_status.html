@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Изменить статус заявки: "{{ request.title }}"</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Изменить статус</button>
+    </form>
+
+    <a href="{% url 'all_requests' %}" class="btn btn-secondary mt-3">Назад к заявкам</a>
+  </div>
+{% endblock %}

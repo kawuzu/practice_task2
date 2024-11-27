@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Добавить категорию{% endblock %}
+
+{% block content %}
+  <h1>Добавить новую категорию</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить категорию</button>
+  </form>
+  <a href="{% url 'all_categories' %}">Назад к категориям</a>
+{% endblock %}

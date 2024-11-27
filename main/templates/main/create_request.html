@@ -1,0 +1,31 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Создание заявки{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="page-title">Создание заявки на разработку дизайна интерьера</h2>
+
+        <!-- Вывод сообщений об ошибках или успехе -->
+        {% if messages %}
+            <div class="messages">
+                <ul>
+                    {% for message in messages %}
+                        <li class="message {{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Форма создания заявки -->
+        <form method="POST" enctype="multipart/form-data" class="request-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="btn submit-btn">Создать заявку</button>
+        </form>
+    </div>
+{% endblock %}

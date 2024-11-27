@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Редактировать категорию{% endblock %}
+
+{% block content %}
+  <h1>Редактировать категорию "{{ category.name }}"</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+  </form>
+  <a href="{% url 'all_categories' %}">Назад к категориям</a>
+{% endblock %}
