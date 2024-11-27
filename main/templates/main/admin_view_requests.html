@@ -1,0 +1,50 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Все заявки</h1>
+
+    {% if requests %}
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Заголовок</th>
+            <th>Категория</th>
+            <th>Пользователь</th>
+            <th>Статус</th>
+            <th>Дата создания</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in requests %}
+            <tr>
+              <td>{{ request.title }}</td>
+              <td>{{ request.category.name }}</td>
+              <td>{{ request.user.username }}</td>
+              <td>
+                {% if request.status == 'new' %}
+                  <span class="badge bg-secondary">Новая</span>
+                {% elif request.status == 'in_progress' %}
+                  <span class="badge bg-warning text-dark">Принято в работу</span>
+                {% elif request.status == 'completed' %}
+                  <span class="badge bg-success">Выполнено</span>
+                {% endif %}
+              </td>
+              <td>{{ request.created_at }}</td>
+              <td>
+                {% if request.status != 'completed' %}
+                  <a href="{% url 'change_design_request_status' pk=request.pk %}" class="btn btn-primary">Изменить статус</a>
+                {% else %}
+                  <button class="btn btn-success" disabled>Завершено</button>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Нет заявок для отображения.</p>
+    {% endif %}
+  </div>
+{% endblock %}
