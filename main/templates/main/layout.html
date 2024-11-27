@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Мой сайт</h1>
+        <nav>
+            <a href="{% url 'home' %}">Главная</a>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Выход</button>
+                </form>
+                <!-- Кнопка для создания заявки, видна только авторизованным пользователям -->
+                <a href="{% url 'create_request' %}" class="btn">Создать заявку</a>
+                <!-- Кнопка для перехода к списку своих заявок -->
+                <a href="{% url 'my_requests' %}" class="btn">Мои заявки</a>
+                <!-- Кнопка для перехода ко всем категориям -->
+                <a href="{% url 'all_categories' %}" class="btn">Все категории</a>
+
+                <!-- Кнопка для администратора, видна только пользователям с правами администратора -->
+                {% if user.is_staff %}
+                    <a href="{% url 'all_requests' %}" class="btn">Все заявки</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
+                <a href="{% url 'register' %}">Регистрация</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Основной контент страницы будет вставляться сюда -->
+        {% endblock %}
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
