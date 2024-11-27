@@ -1,0 +1,31 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <h2>Вход в личный кабинет</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.username.label }}:
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.password.label }}:
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="error">{{ form.password.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit">Войти</button>
+    </form>
+
+    <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a>.</p>
+{% endblock %}
