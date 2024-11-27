@@ -1,0 +1,41 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Список заявок{% endblock %}
+
+{% block content %}
+  <h1>Список всех заявок</h1>
+
+  <table class="requests-table">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Категория</th>
+        <th>Дата создания</th>
+        <th>Пользователь</th>
+        <th>Статус</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for request in requests %}
+        <tr>
+          <td><a href="{% url 'request_detail' request.id %}">{{ request.title }}</a></td>
+          <td>{{ request.description }}</td>
+          <td>{{ request.category.name }}</td>
+          <td>{{ request.created_at }}</td>
+          <td>{{ request.user.username }}</td>
+          <td>{{ request.status }}</td>  <!-- Показываем текущий статус заявки -->
+          <td>
+            <!-- Кнопка для изменения статуса -->
+            <form action="{% url 'change_request_status' request.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Изменить статус</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
