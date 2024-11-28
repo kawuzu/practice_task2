@@ -21,11 +21,10 @@
                 <a href="{% url 'create_request' %}" class="btn">Создать заявку</a>
                 <!-- Кнопка для перехода к списку своих заявок -->
                 <a href="{% url 'my_requests' %}" class="btn">Мои заявки</a>
-                <!-- Кнопка для перехода ко всем категориям -->
-                <a href="{% url 'all_categories' %}" class="btn">Все категории</a>
 
                 <!-- Кнопка для администратора, видна только пользователям с правами администратора -->
                 {% if user.is_staff %}
+                    <a href="{% url 'all_categories' %}" class="btn">Все категории</a>
                     <a href="{% url 'all_requests' %}" class="btn">Все заявки</a>
                 {% endif %}
             {% else %}

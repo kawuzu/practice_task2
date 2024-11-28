@@ -17,7 +17,7 @@ from .models import DesignRequest
 
 # Create your views here.
 def home(request):
-    # Проверяем, авторизован ли пользователь
+    # авторизован ли пользователь
     if request.user.is_authenticated:
         welcome_message = f"Привет, {request.user.username}!"
     else:
@@ -63,14 +63,14 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            # Получаем данные и аутентифицируем пользователя
+
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                login(request, user)  # Авторизуем пользователя
-                return redirect('home')  # Перенаправляем на главную страницу
+                login(request, user)
+                return redirect('home')
             else:
                 form.add_error(None, 'Неверный логин или пароль.')
     else:
@@ -81,7 +81,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('home')  # Перенаправляем на главную страницу после выхода
+    return redirect('home')
 
 
 @login_required
@@ -90,10 +90,10 @@ def create_request(request):
         form = DesignRequestForm(request.POST, request.FILES)
         if form.is_valid():
             design_request = form.save(commit=False)
-            design_request.user = request.user  # Устанавливаем пользователя
+            design_request.user = request.user
             design_request.save()
             messages.success(request, 'Заявка успешно создана!')
-            return redirect('home')  # Перенаправляем на главную страницу после создания заявки
+            return redirect('home')
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
     else:
@@ -103,9 +103,9 @@ def create_request(request):
 
 
 # Страница списка всех заявок пользователя
-@login_required  # Убедимся, что только авторизованные пользователи могут просматривать свои заявки
+@login_required  #только авторизованные пользователи могут просматривать свои заявки
 def my_requests(request):
-    # Получаем все заявки текущего пользователя и сортируем их: сначала важные, затем остальные
+    #все заявки текущего пользователя: сначала важные, затем остальные
     requests = DesignRequest.objects.filter(user=request.user).order_by('-is_important', '-created_at')
 
     return render(request, 'main/my_requests.html', {'requests': requests})
@@ -119,66 +119,60 @@ def request_detail(request, request_id):
 
 @login_required
 def delete_request(request, id):
-    # Получаем заявку по ID, проверяя, что она существует
     request_to_delete = get_object_or_404(DesignRequest, id=id)
 
-    # Проверяем, является ли пользователь владельцем заявки
     if request_to_delete.user == request.user:
-        # Если пользователь владелец заявки, удаляем ее
         request_to_delete.delete()
-        # Перенаправляем на страницу со списком заявок
         return redirect('my_requests')
     else:
-        # Если пользователь не владелец, показываем ошибку
-        return redirect('home')  # можно перенаправить на главную страницу или показывать сообщение об ошибке
+        return redirect('home')
 
-@staff_member_required  # ограничиваем доступ только для администратора
+@staff_member_required  #доступ только для администратора
 def all_requests(request):
-    requests = DesignRequest.objects.all()  # получаем все заявки
+    requests = DesignRequest.objects.all()  #все заявки
     return render(request, 'main/all_requests.html', {'requests': requests})
 
-@staff_member_required  # Убедимся, что доступ имеют только администраторы
+@staff_member_required
 def change_request_status(request, request_id):
-    # Получаем заявку по ID
     user_request = get_object_or_404(DesignRequest, id=request_id)
 
-    # Проверяем, что статус допустимый
+
     if request.method == 'POST':
         form = StatusChangeForm(request.POST, instance=user_request)
         if form.is_valid():
-            form.save()  # Сохраняем новый статус
+            form.save()
             messages.success(request, f"Статус заявки '{user_request.title}' изменен!")
-            return redirect('main:admin_view_requests')  # Возвращаем на страницу с заявками
+            return redirect('main:admin_view_requests')
     else:
         form = StatusChangeForm(instance=user_request)
 
     return render(request, 'main/change_status.html', {'form': form, 'request': user_request})
 
-@login_required  # Убедимся, что только авторизованные пользователи могут изменять статус
+@staff_member_required
 def change_request_status(request, request_id):
-    # Получаем заявку по ID
+
     design_request = get_object_or_404(DesignRequest, id=request_id)
 
     if request.method == 'POST':
         form = StatusChangeForm(request.POST, instance=design_request)
         if form.is_valid():
-            form.save()  # Сохраняем новый статус
+            form.save()
             messages.success(request, f"Статус заявки '{design_request.title}' успешно изменен!")
-            return redirect('all_requests')  # Перенаправляем на страницу со списком заявок
+            return redirect('all_requests')
     else:
         form = StatusChangeForm(instance=design_request)
 
     return render(request, 'main/change_status.html', {'form': form, 'design_request': design_request})
 
 
-@staff_member_required  # Ограничиваем доступ для администраторов
+@staff_member_required
 def create_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "Категория успешно добавлена!")
-            return redirect('all_categories')  # Перенаправление на страницу всех категорий
+            return redirect('all_categories')
     else:
         form = CategoryForm()
 
@@ -192,7 +186,7 @@ def edit_category(request, category_id):
         if form.is_valid():
             form.save()
             messages.success(request, f"Категория '{category.name}' успешно обновлена!")
-            return redirect('all_categories')  # Перенаправление на страницу всех категорий
+            return redirect('all_categories')
     else:
         form = CategoryForm(instance=category)
 
